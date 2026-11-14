@@ -7,17 +7,19 @@ public abstract class Pieces {
     protected String symbol;
     protected Image image;
     protected int x, y;
+    protected final int valeur;
 
-    public Pieces(boolean witchPlayer, String symbol, String imagePath) {
+    public Pieces(boolean witchPlayer, String symbol, int v, String imagePath) {
         this.witchPlayer = witchPlayer;
         this.symbol = symbol;
-
+        this.valeur = v;
         if (imagePath != null) {
             this.image = new ImageIcon(getClass().getResource("/images/" + imagePath)).getImage();
         }
 
     }
 
+    public int getValeur(){return this.valeur;}
 
     public Image getImage() {
         return image;

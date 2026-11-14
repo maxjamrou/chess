@@ -1,6 +1,6 @@
 public class Queen extends Pieces {
     public Queen(boolean witchPlayer) {
-        super(witchPlayer, "Q", witchPlayer ? "white_queen.png" : "black_queen.png");
+        super(witchPlayer, "Q", 9, witchPlayer ? "white_queen.png" : "black_queen.png");
     }
 
     @Override

@@ -1,6 +1,6 @@
 public class Rook extends Pieces {
     public Rook(boolean witchPlayer) {
-        super(witchPlayer, "R", witchPlayer ? "white_rook.png" : "black_rook.png");
+        super(witchPlayer, "R", 5, witchPlayer ? "white_rook.png" : "black_rook.png");
     }
 
     @Override
