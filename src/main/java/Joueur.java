@@ -2,15 +2,15 @@
 import java.util.ArrayList;
 
 public class Joueur {
-    private String couleur;
+    private final String couleur;
 
     private ArrayList<Pieces> pieces;
-    private ArrayList<Pieces> pions;
-    private ArrayList<Pieces> fous;
-    private ArrayList<Pieces> tours;
-    private ArrayList<Pieces> cavaliers;
-    private ArrayList<Pieces> reines;
-    private Pieces roi;
+    private ArrayList<Pawn> pions;
+    private ArrayList<Bishop> fous;
+    private ArrayList<Rook> tours;
+    private ArrayList<Knight> cavaliers;
+    private ArrayList<Queen> reines;
+    private King roi;
 
     private int points;
     public static final int TOTALPOINTS = 39;
@@ -18,6 +18,11 @@ public class Joueur {
     public Joueur(String c){
         couleur = c;
         pieces = new ArrayList<>();
+        pions = new ArrayList<>();
+        fous = new ArrayList<>();
+        tours = new ArrayList<>();
+        cavaliers = new ArrayList<>();
+        reines = new ArrayList<>();
         points = TOTALPOINTS;
     }
 
@@ -29,21 +34,21 @@ public class Joueur {
     public ArrayList<Pieces> getPieces(){return this.pieces;}
     public void addPieces(Pieces p){this.pieces.add(p);}
 
-    public ArrayList<Pieces> getPions(){return this.pions;}
-    public void addPions(Pieces p){this.pions.add(p);}
+    public ArrayList<Pawn> getPions(){return this.pions;}
+    public void addPions(Pawn p){this.pions.add(p);}
 
-    public ArrayList<Pieces> getFous(){return this.fous;}
-    public void addFous(Pieces p){this.fous.add(p);}
+    public ArrayList<Bishop> getFous(){return this.fous;}
+    public void addFous(Bishop p){this.fous.add(p);}
 
-    public ArrayList<Pieces> getTours(){return this.tours;}
-    public void addTours(Pieces p){this.tours.add(p);}
+    public ArrayList<Rook> getTours(){return this.tours;}
+    public void addTours(Rook p){this.tours.add(p);}
 
-    public ArrayList<Pieces> getCavaliers(){return this.cavaliers;}
-    public void addCavaliers(Pieces p){this.cavaliers.add(p);}
+    public ArrayList<Knight> getCavaliers(){return this.cavaliers;}
+    public void addCavaliers(Knight p){this.cavaliers.add(p);}
 
-    public ArrayList<Pieces> getReines(){return this.reines;}
-    public void addReines(Pieces p){this.reines.add(p);}
+    public ArrayList<Queen> getReines(){return this.reines;}
+    public void addReines(Queen p){this.reines.add(p);}
 
-    public Pieces getRoi(){return this.roi;}
-    public void setRoi(Pieces r){this.roi = r;}
+    public King getRoi(){return this.roi;}
+    public void setRoi(King r){this.roi = r;}
 }

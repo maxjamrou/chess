@@ -3,14 +3,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public abstract class Pieces {
-    protected boolean witchPlayer;
+    protected String couleur;
     protected String symbol;
     protected Image image;
     protected int x, y;
     protected final int valeur;
 
-    public Pieces(boolean witchPlayer, String symbol, int v, String imagePath) {
-        this.witchPlayer = witchPlayer;
+    public Pieces(String couleur, String symbol, int v, String imagePath) {
+        this.couleur = couleur;
         this.symbol = symbol;
         this.valeur = v;
         if (imagePath != null) {

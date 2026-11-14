@@ -1,46 +1,126 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class Board {
     public static final int TILE_SIZE = 100;
     private Pieces[][] board;
+    private final Joueur JB;
+    private final Joueur JN;
 
     public Board(int rows, int cols) {
         board = new Pieces[rows][cols];
+        JB = new Joueur("BLANC");
+        JN = new Joueur("NOIR");
     }
 
     // Initialize pieces on the board
     public void initializeBoard() {
         // Pawns
+        Pawn p;
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Pawn(true);  // white pawns
-            board[6][i] = new Pawn(false); // black pawns
+            p = new Pawn("BLANC");
+            JB.addPieces(p);
+            JB.addPions(p);
+            board[1][i] = p;  // white pawns
+            p = new Pawn("NOIR");
+            JN.addPieces(p);
+            JN.addPions(p);
+            board[6][i] = p; // black pawns
         }
 
         // Rooks
-        board[0][0] = new Rook(true);
-        board[0][7] = new Rook(true);
-        board[7][0] = new Rook(false);
-        board[7][7] = new Rook(false);
+        Rook r;
+
+        r = new Rook("BLANC");
+        JB.addPieces(r);
+        JB.addTours(r);
+        board[0][0] = r;
+
+        r = new Rook("BLANC");
+        JB.addPieces(r);
+        JB.addTours(r);
+        board[0][7] = r;
+
+        r = new Rook("NOIR");
+        JN.addPieces(r);
+        JN.addTours(r);
+        board[7][0] = r;
+
+        r = new Rook("NOIR");
+        JN.addPieces(r);
+        JN.addTours(r);
+        board[7][7] = r;
 
         // Knights
-        board[0][1] = new Knight(true);
-        board[0][6] = new Knight(true);
-        board[7][1] = new Knight(false);
-        board[7][6] = new Knight(false);
+        Knight k;
+
+        k = new Knight("BLANC");
+        JB.addPieces(k);
+        JB.addCavaliers(k);
+        board[0][1] = k;
+
+        k = new Knight("BLANC");
+        JB.addPieces(k);
+        JB.addCavaliers(k);
+        board[0][6] = k;
+        
+        k = new Knight("NOIR");
+        JN.addPieces(k);
+        JN.addCavaliers(k);
+        board[7][1] = k;
+        
+        k = new Knight("NOIR");
+        JN.addPieces(k);
+        JN.addCavaliers(k);
+        board[7][6] = k;
 
         // Bishops
-        board[0][2] = new Bishop(true);
-        board[0][5] = new Bishop(true);
-        board[7][2] = new Bishop(false);
-        board[7][5] = new Bishop(false);
+        Bishop b;
+
+        b = new Bishop("BLANC");
+        JB.addPieces(b);
+        JB.addFous(b);
+        board[0][2] = b;
+
+        b = new Bishop("BLANC");
+        JB.addPieces(b);
+        JB.addFous(b);
+        board[0][5] = b;
+
+        b = new Bishop("NOIR");
+        JN.addPieces(b);
+        JN.addFous(b);
+        board[7][2] = b;
+
+        b = new Bishop("NOIR");
+        JN.addPieces(b);
+        JN.addFous(b);
+        board[7][5] = b;
 
         // Queens
-        board[0][3] = new Queen(true);
-        board[7][3] = new Queen(false);
+        Queen q;
+
+        q = new Queen("BLANC");
+        JB.addPieces(q);
+        JB.addReines(q);
+        board[0][3] = q;
+
+        q = new Queen("NOIR");
+        JN.addPieces(q);
+        JN.addReines(q);
+        board[7][3] = q;
 
         // Kings
-        board[0][4] = new King(true);
-        board[7][4] = new King(false);
+        King king;
+        king = new King("BLANC");
+        JB.addPieces(king);
+        JB.setRoi(king);
+        board[0][4] = king;
+
+        king = new King("NOIR");
+        JN.addPieces(king);
+        JN.setRoi(king);
+        board[7][4] = king;
 
         // Empty squares remain null
     }
@@ -69,6 +149,9 @@ public class Board {
     }
     public void setBoard(Pieces[][] board) {
         this.board = board;
-
     }
+
+    public Joueur getJoueurBlanc(){return this.JB;}
+
+    public Joueur getJoueurNoir(){return this.JN;}
 }

@@ -4,9 +4,9 @@ public class King extends Pieces {
     private final String normalImagePath;
     private final String redImagePath = "red_king.png";
 
-    public King(boolean witchPlayer) {
-        super(witchPlayer, "K", 0, witchPlayer ? "white_king.png" : "black_king.png");
-        normalImagePath = witchPlayer ? "white_king.png" : "black_king.png";
+    public King(String couleur) {
+        super(couleur, "K", 0, couleur.equals("BLANC") ? "white_king.png" : "black_king.png");
+        normalImagePath = couleur.equals("BLANC") ? "white_king.png" : "black_king.png";
     }
 
     @Override
@@ -14,7 +14,7 @@ public class King extends Pieces {
         int dRow = Math.abs(row - selectedRow);
         int dCol = Math.abs(col - selectedCol);
         return (dRow <= 1 && dCol <= 1) &&
-                (board[row][col] == null || board[row][col].witchPlayer != this.witchPlayer);
+                (board[row][col] == null || !board[row][col].couleur.equals(this.couleur));
     }
 
     public void resetImage() {

@@ -1,6 +1,6 @@
 public class Bishop extends Pieces {
-    public Bishop(boolean witchPlayer) {
-        super(witchPlayer, "B", 3, witchPlayer ? "white_bishop.png" : "black_bishop.png");
+    public Bishop(String couleur) {
+        super(couleur, "B", 3, couleur.equals("BLANC") ? "white_bishop.png" : "black_bishop.png");
     }
 
     @Override
@@ -18,6 +18,6 @@ public class Bishop extends Pieces {
             c += colStep;
         }
 
-        return board[row][col] == null || board[row][col].witchPlayer != this.witchPlayer;
+        return board[row][col] == null || !board[row][col].couleur.equals(this.couleur);
     }
 }

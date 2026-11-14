@@ -1,6 +1,6 @@
 public class Knight extends Pieces {
-    public Knight(boolean witchPlayer) {
-        super(witchPlayer, "N", 3, witchPlayer ? "white_knight.png" : "black_knight.png");
+    public Knight(String couleur) {
+        super(couleur, "N", 3, couleur.equals("BLANC") ? "white_knight.png" : "black_knight.png");
     }
 
     @Override
@@ -9,6 +9,6 @@ public class Knight extends Pieces {
         int dCol = Math.abs(col - selectedCol);
 
         return ((dRow == 2 && dCol == 1) || (dRow == 1 && dCol == 2))
-                && (board[row][col] == null || board[row][col].witchPlayer != this.witchPlayer);
+                && (board[row][col] == null || !board[row][col].couleur.equals(this.couleur));
     }
 }

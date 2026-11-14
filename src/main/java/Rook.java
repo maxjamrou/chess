@@ -1,6 +1,6 @@
 public class Rook extends Pieces {
-    public Rook(boolean witchPlayer) {
-        super(witchPlayer, "R", 5, witchPlayer ? "white_rook.png" : "black_rook.png");
+    public Rook(String couleur) {
+        super(couleur, "R", 5, couleur.equals("BLANC") ? "white_rook.png" : "black_rook.png");
     }
 
     @Override
@@ -19,6 +19,6 @@ public class Rook extends Pieces {
             }
         }
 
-        return board[row][col] == null || board[row][col].witchPlayer != this.witchPlayer;
+        return board[row][col] == null || !board[row][col].couleur.equals(this.couleur);
     }
 }

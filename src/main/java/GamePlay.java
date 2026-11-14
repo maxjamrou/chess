@@ -8,12 +8,12 @@ import javax.swing.JPanel;
 
 public class GamePlay extends JPanel {
     public static final int WIDTH = 800, HEIGHT = 800;
-    boolean Player = true; // white starts
     boolean pieceSelected = false;
     int selectedRow = -1, selectedCol = -1;
     boolean gameOver = false;
-
+    
     Board board = new Board(8, 8);
+    Joueur Player = board.getJoueurBlanc(); // white starts
 
     public GamePlay() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -26,7 +26,7 @@ public class GamePlay extends JPanel {
                 int row = e.getY() / Board.TILE_SIZE;
 
                 if (!pieceSelected) {
-                    if (board.getBoard()[row][col] != null && board.getBoard()[row][col].witchPlayer == Player) {
+                    if (board.getBoard()[row][col] != null && board.getBoard()[row][col].couleur.equals(Player.getCouleur())) {
                         selectedRow = row;
                         selectedCol = col;
                         pieceSelected = true;
@@ -39,7 +39,9 @@ public class GamePlay extends JPanel {
                                 Pawn pawn = (Pawn) piece;
                                 pawn.notFirstMove();
                             }
-                            Player = !Player;
+                            // Player = !Player;
+                            if(Player.getCouleur().equals("BLANC")) Player = board.getJoueurNoir();
+                            else Player = board.getJoueurBlanc();
                             check();
                         }
 
@@ -77,7 +79,7 @@ public class GamePlay extends JPanel {
     private boolean isValidMoveGeneral(int sRow, int sCol, int eRow, int eCol) {
         if(board.getBoard()[sRow][sCol] == null) return false;
         Pieces p = board.getBoard()[sRow][sCol];
-        if (board.getBoard()[eRow][eCol] != null && board.getBoard()[eRow][eCol].witchPlayer == Player)
+        if (board.getBoard()[eRow][eCol] != null && board.getBoard()[eRow][eCol].couleur.equals(Player.getCouleur()))
             return false;
         return p.isValidMove(sRow, sCol, eRow, eCol, board.getBoard());
     }
@@ -114,7 +116,7 @@ public class GamePlay extends JPanel {
         for (int r = 0; r < board.getBoard().length; r++)
             for (int c = 0; c < board.getBoard()[r].length; c++) {
                 Pieces p = board.getBoard()[r][c];
-                if (p instanceof King && p.witchPlayer == Player) {
+                if (p instanceof King && p.couleur.equals(Player.getCouleur())) {
                     king = (King)p;
                     kRow = r;
                     kCol = c;
@@ -128,7 +130,7 @@ public class GamePlay extends JPanel {
         for (int r = 0; r < board.getBoard().length; r++)
             for (int c = 0; c < board.getBoard()[r].length; c++) {
                 Pieces p = board.getBoard()[r][c];
-                if (p != null && p.witchPlayer != Player) {
+                if (p != null && !p.couleur.equals(Player.getCouleur())) {
                     if (p.isValidMove(r, c, kRow, kCol, board.getBoard())) {
                         inCheck = true;
                         System.out.println("Check by " + p.getSymbol() + " at (" + r + "," + c + ")");
@@ -144,7 +146,7 @@ public class GamePlay extends JPanel {
         for (int r = 0; r < board.getBoard().length; r++)
             for (int c = 0; c < board.getBoard()[r].length; c++) {
                 Pieces p = board.getBoard()[r][c];
-                if (p instanceof King && p.witchPlayer == Player) return false;
+                if (p instanceof King && p.couleur.equals(Player.getCouleur())) return false;
             }
         System.out.println("gameover");
         return true;

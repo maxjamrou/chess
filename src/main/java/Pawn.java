@@ -1,8 +1,8 @@
 public class Pawn extends Pieces {
     boolean firstMove = true;
 
-    public Pawn(boolean witchPlayer) {
-        super(witchPlayer, "P", 1, witchPlayer ? "white_pawn.png" : "black_pawn.png");
+    public Pawn(String couleur) {
+        super(couleur, "P", 1, couleur.equals("BLANC") ? "white_pawn.png" : "black_pawn.png");
     }
 
     @Override
@@ -21,7 +21,7 @@ public class Pawn extends Pieces {
             return false;
 
 
-        int step = witchPlayer ? 1 : -1;
+        int step = couleur.equals("BLANC") ? 1 : -1;
 
 
         if (col == selectedCol && board[row][col] == null) {
@@ -39,7 +39,7 @@ public class Pawn extends Pieces {
 
 
         if (Math.abs(col - selectedCol) == 1 && row - selectedRow == step) {
-            if (board[row][col] != null && board[row][col].witchPlayer != this.witchPlayer) {
+            if (board[row][col] != null && !board[row][col].couleur.equals(this.couleur)) {
                 return true;
             }
         }
