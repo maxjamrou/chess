@@ -4,8 +4,8 @@ public class King extends Pieces {
     private final String normalImagePath;
     private final String redImagePath = "red_king.png";
 
-    public King(boolean witchPlayer) {
-        super(witchPlayer, "K", witchPlayer ? "white_king.png" : "black_king.png");
+    public King(boolean witchPlayer, int x, int y) {
+        super(witchPlayer, "K", x, y, witchPlayer ? "white_king.png" : "black_king.png");
         normalImagePath = witchPlayer ? "white_king.png" : "black_king.png";
     }
 

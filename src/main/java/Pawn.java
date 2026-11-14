@@ -1,8 +1,8 @@
 public class Pawn extends Pieces {
     boolean firstMove = true;
 
-    public Pawn(boolean witchPlayer) {
-        super(witchPlayer, "P", witchPlayer ? "white_pawn.png" : "black_pawn.png");
+    public Pawn(boolean witchPlayer, int x, int y) {
+        super(witchPlayer, "P", x, y, witchPlayer ? "white_pawn.png" : "black_pawn.png");
     }
 
     @Override

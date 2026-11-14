@@ -1,6 +1,6 @@
 public class Knight extends Pieces {
-    public Knight(boolean witchPlayer) {
-        super(witchPlayer, "N", witchPlayer ? "white_knight.png" : "black_knight.png");
+    public Knight(boolean witchPlayer, int x, int y) {
+        super(witchPlayer, "N", x, y, witchPlayer ? "white_knight.png" : "black_knight.png");
     }
 
     @Override

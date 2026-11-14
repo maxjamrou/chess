@@ -1,6 +1,6 @@
 public class Bishop extends Pieces {
-    public Bishop(boolean witchPlayer) {
-        super(witchPlayer, "B", witchPlayer ? "white_bishop.png" : "black_bishop.png");
+    public Bishop(boolean witchPlayer, int x, int y) {
+        super(witchPlayer, "B", x, y, witchPlayer ? "white_bishop.png" : "black_bishop.png");
     }
 
     @Override
