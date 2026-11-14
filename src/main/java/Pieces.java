@@ -3,10 +3,9 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public abstract class Pieces {
-    protected boolean witchPlayer;
-    protected String symbol;
-    protected Image image;
-    protected int x, y;
+    boolean witchPlayer;
+    String symbol;
+    Image image;
 
     public Pieces(boolean witchPlayer, String symbol, String imagePath) {
         this.witchPlayer = witchPlayer;
