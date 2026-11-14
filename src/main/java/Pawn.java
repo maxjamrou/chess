@@ -1,8 +1,8 @@
 public class Pawn extends Pieces {
     boolean firstMove = true;
 
-    public Pawn(String couleur) {
-        super(couleur, "P", 1, couleur.equals("BLANC") ? "white_pawn.png" : "black_pawn.png");
+    public Pawn(String couleur, int x, int y) {
+        super(couleur, "P", 1, x, y, couleur.equals("BLANC") ? "white_pawn.png" : "black_pawn.png");
     }
 
     @Override

@@ -18,11 +18,11 @@ public class Board {
         // Pawns
         Pawn p;
         for (int i = 0; i < 8; i++) {
-            p = new Pawn("BLANC");
+            p = new Pawn("BLANC", 1, i);
             JB.addPieces(p);
             JB.addPions(p);
             board[1][i] = p;  // white pawns
-            p = new Pawn("NOIR");
+            p = new Pawn("NOIR", 6, i);
             JN.addPieces(p);
             JN.addPions(p);
             board[6][i] = p; // black pawns
@@ -31,22 +31,22 @@ public class Board {
         // Rooks
         Rook r;
 
-        r = new Rook("BLANC");
+        r = new Rook("BLANC", 0, 0);
         JB.addPieces(r);
         JB.addTours(r);
         board[0][0] = r;
 
-        r = new Rook("BLANC");
+        r = new Rook("BLANC", 0, 7);
         JB.addPieces(r);
         JB.addTours(r);
         board[0][7] = r;
 
-        r = new Rook("NOIR");
+        r = new Rook("NOIR", 7, 0);
         JN.addPieces(r);
         JN.addTours(r);
         board[7][0] = r;
 
-        r = new Rook("NOIR");
+        r = new Rook("NOIR", 7, 7);
         JN.addPieces(r);
         JN.addTours(r);
         board[7][7] = r;
@@ -54,22 +54,22 @@ public class Board {
         // Knights
         Knight k;
 
-        k = new Knight("BLANC");
+        k = new Knight("BLANC", 0, 1);
         JB.addPieces(k);
         JB.addCavaliers(k);
         board[0][1] = k;
 
-        k = new Knight("BLANC");
+        k = new Knight("BLANC", 0, 6);
         JB.addPieces(k);
         JB.addCavaliers(k);
         board[0][6] = k;
         
-        k = new Knight("NOIR");
+        k = new Knight("NOIR", 7, 1);
         JN.addPieces(k);
         JN.addCavaliers(k);
         board[7][1] = k;
         
-        k = new Knight("NOIR");
+        k = new Knight("NOIR", 7, 6);
         JN.addPieces(k);
         JN.addCavaliers(k);
         board[7][6] = k;
@@ -77,22 +77,22 @@ public class Board {
         // Bishops
         Bishop b;
 
-        b = new Bishop("BLANC");
+        b = new Bishop("BLANC", 0, 2);
         JB.addPieces(b);
         JB.addFous(b);
         board[0][2] = b;
 
-        b = new Bishop("BLANC");
+        b = new Bishop("BLANC", 0, 5);
         JB.addPieces(b);
         JB.addFous(b);
         board[0][5] = b;
 
-        b = new Bishop("NOIR");
+        b = new Bishop("NOIR", 7, 2);
         JN.addPieces(b);
         JN.addFous(b);
         board[7][2] = b;
 
-        b = new Bishop("NOIR");
+        b = new Bishop("NOIR", 7, 5);
         JN.addPieces(b);
         JN.addFous(b);
         board[7][5] = b;
@@ -100,24 +100,24 @@ public class Board {
         // Queens
         Queen q;
 
-        q = new Queen("BLANC");
+        q = new Queen("BLANC", 0, 3);
         JB.addPieces(q);
         JB.addReines(q);
         board[0][3] = q;
 
-        q = new Queen("NOIR");
+        q = new Queen("NOIR", 7, 3);
         JN.addPieces(q);
         JN.addReines(q);
         board[7][3] = q;
 
         // Kings
         King king;
-        king = new King("BLANC");
+        king = new King("BLANC", 0, 4);
         JB.addPieces(king);
         JB.setRoi(king);
         board[0][4] = king;
 
-        king = new King("NOIR");
+        king = new King("NOIR", 7, 4);
         JN.addPieces(king);
         JN.setRoi(king);
         board[7][4] = king;

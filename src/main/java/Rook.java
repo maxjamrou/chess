@@ -1,6 +1,6 @@
 public class Rook extends Pieces {
-    public Rook(String couleur) {
-        super(couleur, "R", 5, couleur.equals("BLANC") ? "white_rook.png" : "black_rook.png");
+    public Rook(String couleur, int x, int y) {
+        super(couleur, "R", 5, x, y, couleur.equals("BLANC") ? "white_rook.png" : "black_rook.png");
     }
 
     @Override

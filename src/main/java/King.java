@@ -4,8 +4,8 @@ public class King extends Pieces {
     private final String normalImagePath;
     private final String redImagePath = "red_king.png";
 
-    public King(String couleur) {
-        super(couleur, "K", 0, couleur.equals("BLANC") ? "white_king.png" : "black_king.png");
+    public King(String couleur, int x, int y) {
+        super(couleur, "K", 0, x, y, couleur.equals("BLANC") ? "white_king.png" : "black_king.png");
         normalImagePath = couleur.equals("BLANC") ? "white_king.png" : "black_king.png";
     }
 

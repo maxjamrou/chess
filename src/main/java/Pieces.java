@@ -9,10 +9,12 @@ public abstract class Pieces {
     protected int x, y;
     protected final int valeur;
 
-    public Pieces(String couleur, String symbol, int v, String imagePath) {
+    public Pieces(String couleur, String symbol, int v, int x, int y, String imagePath) {
         this.couleur = couleur;
         this.symbol = symbol;
         this.valeur = v;
+        this.x = x;
+        this.y = y;
         if (imagePath != null) {
             this.image = new ImageIcon(getClass().getResource("/images/" + imagePath)).getImage();
         }
@@ -29,6 +31,11 @@ public abstract class Pieces {
         return symbol;
     }
 
+    public int getX(){return this.x;}
+    public void setX(int x){this.x = x;}
 
+    public int getY(){return this.y;}
+    public void setY(int y){this.y = y;}
+    
     public abstract boolean isValidMove(int startRow, int startCol, int endRow, int endCol, Pieces[][] board);
 }
