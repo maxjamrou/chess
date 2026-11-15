@@ -22,16 +22,17 @@ public class GamePlay extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                System.out.println(pieceSelected);
+                long timestart = System.currentTimeMillis();
                 int col = e.getX() / Board.TILE_SIZE;
                 int row = e.getY() / Board.TILE_SIZE;
-
-                if (!pieceSelected) {
-                    if (board.getBoard()[row][col] != null && board.getBoard()[row][col].couleur.equals(Player.getCouleur())) {
-                        selectedRow = row;
-                        selectedCol = col;
-                        pieceSelected = true;
-                    }
-                } else {
+                
+                if (board.getBoard()[row][col] != null && board.getBoard()[row][col].couleur.equals(Player.getCouleur())) {
+                    selectedRow = row;
+                    selectedCol = col;
+                    pieceSelected = true;
+                }
+                if(pieceSelected){
                     if (isValidMoveGeneral(selectedRow, selectedCol, row, col)) {
                         if(movePiece(selectedRow, selectedCol, row, col)){
                             Pieces piece = board.getBoard()[row][col];
@@ -43,27 +44,24 @@ public class GamePlay extends JPanel {
                             if(Player.getCouleur().equals("BLANC")) Player = board.getJoueurNoir();
                             else Player = board.getJoueurBlanc();
                             check();
+                            pieceSelected = false;
+                            selectedRow = -1;
+                            selectedCol = -1;
                         }
-
+    
                         if (isGameOver()) gameOver = true;
                     }
-                    pieceSelected = false;
-                    selectedRow = -1;
-                    selectedCol = -1;
                 }
-                repaint();
-            }
-        });
+            repaint();
+            System.out.println("Temps pris après avoir cliqué : " + (System.currentTimeMillis() - timestart));
+        }
+    });
+                
     }
 
     private boolean movePiece(int sRow, int sCol, int eRow, int eCol) {
         Pieces piece = board.getBoard()[sRow][sCol];
-        Pieces newPiece;
-        if(board.getBoard()[eRow][eCol] != null){
-            newPiece = board.getBoard()[eRow][eCol];
-        }else{
-            newPiece = null;
-        }
+        Pieces newPiece = board.getBoard()[eRow][eCol];
 
         board.getBoard()[eRow][eCol] = board.getBoard()[sRow][sCol];
         board.getBoard()[sRow][sCol] = null;
@@ -73,6 +71,8 @@ public class GamePlay extends JPanel {
             System.out.println("invalide move ---makes check");
             return false;
         }
+        Player.getPieces().get((Player.getPieces().indexOf(piece))).setX(eRow);
+        Player.getPieces().get((Player.getPieces().indexOf(piece))).setY(eCol);
         return true;
     }
 
@@ -110,34 +110,31 @@ public class GamePlay extends JPanel {
     *              Si oui, on renvoie qu'il y a échec
     */
     private boolean check() {
-        King king = null;
-        int kRow = -1, kCol = -1;
-
-        for (int r = 0; r < board.getBoard().length; r++)
-            for (int c = 0; c < board.getBoard()[r].length; c++) {
-                Pieces p = board.getBoard()[r][c];
-                if (p instanceof King && p.couleur.equals(Player.getCouleur())) {
-                    king = (King)p;
-                    kRow = r;
-                    kCol = c;
-                    king.resetImage();
-                }
-            }
-
-        if (king == null) return false;
-
+        King king = Player.getRoi();
+        int kRow = king.getX(), kCol = king.getY();
+        king.resetImage();
+        
         boolean inCheck = false;
-        for (int r = 0; r < board.getBoard().length; r++)
-            for (int c = 0; c < board.getBoard()[r].length; c++) {
-                Pieces p = board.getBoard()[r][c];
-                if (p != null && !p.couleur.equals(Player.getCouleur())) {
-                    if (p.isValidMove(r, c, kRow, kCol, board.getBoard())) {
-                        inCheck = true;
-                        System.out.println("Check by " + p.getSymbol() + " at (" + r + "," + c + ")");
-                    }
-                }
+        Joueur Player2;
+        if(Player.getCouleur().equals("BLANC")) Player2 = board.getJoueurNoir();
+        else Player2 = board.getJoueurBlanc();
+        for(Pieces p : Player2.getPieces()){
+            if (p.isValidMove(p.getX(), p.getY(), kRow, kCol, board.getBoard())) {
+                inCheck = true;
+                System.out.println("Check by " + p.getSymbol() + " at (" + p.getX() + "," + p.getY() + ")");
             }
+        }
 
+        // for (int r = 0; r < board.getBoard().length; r++)
+        //     for (int c = 0; c < board.getBoard()[r].length; c++) {
+        //         Pieces p = board.getBoard()[r][c];
+        //         if (p != null && !p.couleur.equals(Player.getCouleur())) {
+        //             if (p.isValidMove(r, c, kRow, kCol, board.getBoard())) {
+        //                 inCheck = true;
+        //                 System.out.println("Check by " + p.getSymbol() + " at (" + r + "," + c + ")");
+        //             }
+        //         }
+        //     }
         if (inCheck) king.setCheckImage();
         return inCheck;
     }
