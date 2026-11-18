@@ -1,6 +1,6 @@
 public class Bishop extends Pieces {
     public Bishop(String couleur, int x, int y) {
-        super(couleur, "B", 3, x, y, couleur.equals("BLANC") ? "white_bishop.png" : "black_bishop.png");
+        super(couleur, "B", 3, "Fou", x, y, couleur.equals("BLANC") ? "white_bishop.png" : "black_bishop.png");
     }
 
     @Override

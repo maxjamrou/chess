@@ -1,6 +1,6 @@
 public class Queen extends Pieces {
     public Queen(String couleur, int x, int y) {
-        super(couleur, "Q", 9, x, y, couleur.equals("BLANC") ? "white_queen.png" : "black_queen.png");
+        super(couleur, "Q", 9, "Reine", x, y, couleur.equals("BLANC") ? "white_queen.png" : "black_queen.png");
     }
 
     @Override

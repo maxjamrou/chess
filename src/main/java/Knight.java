@@ -1,6 +1,6 @@
 public class Knight extends Pieces {
     public Knight(String couleur, int x, int y) {
-        super(couleur, "N", 3, x, y, couleur.equals("BLANC") ? "white_knight.png" : "black_knight.png");
+        super(couleur, "N", 3, "Cavalier", x, y, couleur.equals("BLANC") ? "white_knight.png" : "black_knight.png");
     }
 
     @Override

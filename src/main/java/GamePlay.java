@@ -60,15 +60,14 @@ public class GamePlay extends JPanel {
 
     private boolean movePiece(int sRow, int sCol, int eRow, int eCol) {
         Pieces piece = board.getBoard()[sRow][sCol];
+        System.out.print(piece.getNom() + " en " + piece);
+
         Pieces newPiece = board.getBoard()[eRow][eCol];
         board.getBoard()[eRow][eCol] = board.getBoard()[sRow][sCol];
         board.getBoard()[sRow][sCol] = null;
         Pieces piecePlayer = board.getCurrentPlayer().getPieces().get((board.getCurrentPlayer().getPieces().indexOf(piece)));
-        System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
         piecePlayer.setX(eRow);
         piecePlayer.setY(eCol);
-        System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
-
         Joueur player2 = null;
         Pieces pieceTaken = null;
         if(newPiece!=null){
@@ -76,15 +75,16 @@ public class GamePlay extends JPanel {
             pieceTaken = player2.getPieces().remove((player2.getPieces().indexOf(newPiece)));
         }
         if(check()){
+            System.out.println(" ne peut pas bouger (met le roi en échec)");
             board.getBoard()[sRow][sCol] = piece;
             board.getBoard()[eRow][eCol] = newPiece;
             if(newPiece!=null) player2.getPieces().add(pieceTaken);
             piecePlayer.setX(sRow);
             piecePlayer.setY(sCol);
-            System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
             System.out.println("invalide move ---makes check");
             return false;
         }
+        System.out.println(" peut se déplacer en " + piece);
         return true;
     }
 

@@ -7,13 +7,15 @@ public abstract class Pieces {
     protected String symbol;
     protected Image image;
     protected int x, y;
+    protected String nom;
     protected final int valeur;
     protected boolean captured;
 
-    public Pieces(String couleur, String symbol, int v, int x, int y, String imagePath) {
+    public Pieces(String couleur, String symbol, int v, String n, int x, int y, String imagePath) {
         this.couleur = couleur;
         this.symbol = symbol;
         this.valeur = v;
+        this.nom = n;
         this.x = x;
         this.y = y;
         this.captured = false;
@@ -33,6 +35,8 @@ public abstract class Pieces {
         return symbol;
     }
 
+    public String getNom(){return this.nom;}
+
     public int getX(){return this.x;}
     public void setX(int x){this.x = x;}
 
@@ -41,6 +45,12 @@ public abstract class Pieces {
     
     public boolean isCaptured(){return this.captured;}
     public void switchCaptured(){this.captured = true;}
+
+    @Override 
+    public String toString(){
+        return (char)((int)('A') + (7 - y)) + "" + (x + 1);
+    }
+
 
     public abstract boolean isValidMove(int startRow, int startCol, int endRow, int endCol, Pieces[][] board);
 }
