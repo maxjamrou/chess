@@ -13,7 +13,7 @@ public class GamePlay extends JPanel {
     boolean gameOver = false;
     
     Board board = new Board(8, 8);
-    Joueur Player = board.getJoueurBlanc(); // white starts
+    // white starts
 
     public GamePlay() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -27,7 +27,7 @@ public class GamePlay extends JPanel {
                 int col = e.getX() / Board.TILE_SIZE;
                 int row = e.getY() / Board.TILE_SIZE;
                 
-                if (board.getBoard()[row][col] != null && board.getBoard()[row][col].couleur.equals(Player.getCouleur())) {
+                if (board.getBoard()[row][col] != null && board.getBoard()[row][col].couleur.equals(board.getCurrentPlayer().getCouleur())) {
                     selectedRow = row;
                     selectedCol = col;
                     pieceSelected = true;
@@ -41,8 +41,7 @@ public class GamePlay extends JPanel {
                                 pawn.notFirstMove();
                             }
                             // Player = !Player;
-                            if(Player.getCouleur().equals("BLANC")) Player = board.getJoueurNoir();
-                            else Player = board.getJoueurBlanc();
+                            board.switchPlayer();
                             check();
                             pieceSelected = false;
                             selectedRow = -1;
@@ -62,24 +61,37 @@ public class GamePlay extends JPanel {
     private boolean movePiece(int sRow, int sCol, int eRow, int eCol) {
         Pieces piece = board.getBoard()[sRow][sCol];
         Pieces newPiece = board.getBoard()[eRow][eCol];
-
         board.getBoard()[eRow][eCol] = board.getBoard()[sRow][sCol];
         board.getBoard()[sRow][sCol] = null;
+        Pieces piecePlayer = board.getCurrentPlayer().getPieces().get((board.getCurrentPlayer().getPieces().indexOf(piece)));
+        System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
+        piecePlayer.setX(eRow);
+        piecePlayer.setY(eCol);
+        System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
+
+        Joueur player2 = null;
+        Pieces pieceTaken = null;
+        if(newPiece!=null){
+            player2 = board.getOtherPlayer();
+            pieceTaken = player2.getPieces().remove((player2.getPieces().indexOf(newPiece)));
+        }
         if(check()){
             board.getBoard()[sRow][sCol] = piece;
             board.getBoard()[eRow][eCol] = newPiece;
+            if(newPiece!=null) player2.getPieces().add(pieceTaken);
+            piecePlayer.setX(sRow);
+            piecePlayer.setY(sCol);
+            System.out.println("X:" + piecePlayer.getX() + ", Y:" + piecePlayer.getY());
             System.out.println("invalide move ---makes check");
             return false;
         }
-        Player.getPieces().get((Player.getPieces().indexOf(piece))).setX(eRow);
-        Player.getPieces().get((Player.getPieces().indexOf(piece))).setY(eCol);
         return true;
     }
 
     private boolean isValidMoveGeneral(int sRow, int sCol, int eRow, int eCol) {
         if(board.getBoard()[sRow][sCol] == null) return false;
         Pieces p = board.getBoard()[sRow][sCol];
-        if (board.getBoard()[eRow][eCol] != null && board.getBoard()[eRow][eCol].couleur.equals(Player.getCouleur()))
+        if (board.getBoard()[eRow][eCol] != null && board.getBoard()[eRow][eCol].couleur.equals(board.getCurrentPlayer().getCouleur()))
             return false;
         return p.isValidMove(sRow, sCol, eRow, eCol, board.getBoard());
     }
@@ -110,14 +122,12 @@ public class GamePlay extends JPanel {
     *              Si oui, on renvoie qu'il y a échec
     */
     private boolean check() {
-        King king = Player.getRoi();
+        King king = board.getCurrentPlayer().getRoi();
         int kRow = king.getX(), kCol = king.getY();
         king.resetImage();
         
         boolean inCheck = false;
-        Joueur Player2;
-        if(Player.getCouleur().equals("BLANC")) Player2 = board.getJoueurNoir();
-        else Player2 = board.getJoueurBlanc();
+        Joueur Player2 = board.getOtherPlayer();
         for(Pieces p : Player2.getPieces()){
             if (p.isValidMove(p.getX(), p.getY(), kRow, kCol, board.getBoard())) {
                 inCheck = true;
@@ -143,7 +153,7 @@ public class GamePlay extends JPanel {
         for (int r = 0; r < board.getBoard().length; r++)
             for (int c = 0; c < board.getBoard()[r].length; c++) {
                 Pieces p = board.getBoard()[r][c];
-                if (p instanceof King && p.couleur.equals(Player.getCouleur())) return false;
+                if (p instanceof King && p.couleur.equals(board.getCurrentPlayer().getCouleur())) return false;
             }
         System.out.println("gameover");
         return true;

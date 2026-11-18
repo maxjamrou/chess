@@ -6,11 +6,15 @@ public class Board {
     private Pieces[][] board;
     private final Joueur JB;
     private final Joueur JN;
+    private Joueur currentPlayer;
+    private Joueur otherPlayer;
 
     public Board(int rows, int cols) {
         board = new Pieces[rows][cols];
         JB = new Joueur("BLANC");
         JN = new Joueur("NOIR");
+        currentPlayer = JB;
+        otherPlayer = JN;
     }
 
     // Initialize pieces on the board
@@ -154,4 +158,14 @@ public class Board {
     public Joueur getJoueurBlanc(){return this.JB;}
 
     public Joueur getJoueurNoir(){return this.JN;}
+
+    public Joueur getCurrentPlayer(){return this.currentPlayer;}
+
+    public Joueur getOtherPlayer(){return this.otherPlayer;}
+
+    public void switchPlayer(){
+        Joueur tmp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = tmp;
+    }
 }

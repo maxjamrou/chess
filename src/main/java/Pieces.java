@@ -8,6 +8,7 @@ public abstract class Pieces {
     protected Image image;
     protected int x, y;
     protected final int valeur;
+    protected boolean captured;
 
     public Pieces(String couleur, String symbol, int v, int x, int y, String imagePath) {
         this.couleur = couleur;
@@ -15,6 +16,7 @@ public abstract class Pieces {
         this.valeur = v;
         this.x = x;
         this.y = y;
+        this.captured = false;
         if (imagePath != null) {
             this.image = new ImageIcon(getClass().getResource("/images/" + imagePath)).getImage();
         }
@@ -37,5 +39,8 @@ public abstract class Pieces {
     public int getY(){return this.y;}
     public void setY(int y){this.y = y;}
     
+    public boolean isCaptured(){return this.captured;}
+    public void switchCaptured(){this.captured = true;}
+
     public abstract boolean isValidMove(int startRow, int startCol, int endRow, int endCol, Pieces[][] board);
 }
